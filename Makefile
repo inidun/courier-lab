@@ -3,12 +3,14 @@
 .PHONY: build
 build:
 	@echo "Building..."
-	@jupyter lite build --contents=content --force -y 
+	@jupyter lite build --contents=content --force -y
 
 .PHONY: serve
 serve:
 	@echo "Serving..."
-	@jupyter lite serve
+	@python -m http.server 8080 --directory _output
+
+# @jupyter lite serve
 
 .PHONY: clean
 clean:

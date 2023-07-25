@@ -9,8 +9,7 @@ jupyterlite-javascript-kernel==0.1.0b21
 xyzservices
 libarchive-c
 humlab-penelope
-
-jupyterlab-language-pack-se-SE
+jupyterlab-filesystem-access
 
 # jupyterlite-xeus-sqlite==0.2.1
 # jupyterlite-p5-kernel==0.1.0
