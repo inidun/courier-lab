@@ -4,13 +4,13 @@ jupyterlab~=3.5.1
 ipywidgets>=8.0.0,<9
 
 jupyterlite-pyodide-kernel==0.0.6
-jupyterlite-javascript-kernel==0.1.0b21
 
-xyzservices
+# xyzservices
 libarchive-c
-humlab-penelope
-jupyterlab-filesystem-access
+# humlab-penelope
+# jupyterlab-filesystem-access
 
+# jupyterlite-javascript-kernel==0.1.0b21
 # jupyterlite-xeus-sqlite==0.2.1
 # jupyterlite-p5-kernel==0.1.0
 # jupyterlite-xeus-lua==0.3.1
