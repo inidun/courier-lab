@@ -1,0 +1,65 @@
+{
+    "corpus_type": 1,
+    "input_filename": "/data/inidun/courier/corpus/v0.2.0/article_corpus.feather",
+    "output_folder": "/data/inidun/courier/dtm/v0.2.0",
+    "output_tag": "article_corpus_lemma_lc",
+    "transform_opts": {
+        "to_lower": true,
+        "to_upper": false,
+        "only_alphabetic": false,
+        "only_any_alphanumeric": false,
+        "min_len": 2,
+        "max_len": null,
+        "remove_accents": false,
+        "remove_stopwords": false,
+        "stopwords": null,
+        "extra_stopwords": null,
+        "language": null,
+        "keep_numerals": true,
+        "keep_symbols": true
+    },
+    "reader_opts": {
+        "filename_pattern": "**/*.feather",
+        "filename_filter": null,
+        "filename_fields": [
+            "year:_:0",
+            "courier_id:_:1",
+            "record_number:_:2"
+        ],
+        "index_field": null,
+        "as_binary": false,
+        "sep": "\t",
+        "quoting": 3,
+        "n_processes": 1,
+        "n_chunksize": 2,
+        "dehyphen_expr": "\\b(\\w+)[-\u00ac]\\s*\\r?\\n\\s*(\\w+)\\s*\\b"
+    },
+    "extract_opts": {
+        "lemmatize": true,
+        "target_override": null,
+        "pos_includes": null,
+        "pos_excludes": "|PUNCT|EOL|SPACE|",
+        "pos_paddings": null,
+        "pos_replace_marker": "*",
+        "passthrough_tokens": [],
+        "block_tokens": [],
+        "append_pos": false,
+        "phrases": null,
+        "text_column": "text",
+        "lemma_column": "lemma_",
+        "pos_column": "pos_",
+        "filter_opts": {}
+    },
+    "vectorize_opt": {
+        "already_tokenized": true,
+        "lowercase": false,
+        "stop_words": null,
+        "max_df": 1.0,
+        "min_df": 1,
+        "min_tf": 1,
+        "max_tokens": 2000000
+    },
+    "tf_threshold": 1,
+    "tf_threshold_mask": true,
+    "context_opts": {}
+}

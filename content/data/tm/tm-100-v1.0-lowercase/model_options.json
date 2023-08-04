@@ -1,0 +1,21 @@
+{
+    "method": "gensim_mallet-lda",
+    "perplexity_score": 0,
+    "coherence_score": -1.5039883393633664,
+    "engine_options": {
+        "alpha": "asymmetric",
+        "chunk_size": 2000,
+        "max_iter": 3000,
+        "num_top_words": 500,
+        "minimum_probability": 0.02,
+        "n_topics": 100,
+        "per_word_topics": false,
+        "random_seed": 42,
+        "update_every": 1,
+        "work_folder": "/data/inidun/courier/tm/v0.2.0/tm_courier_v0.2.0_100-TF5-MP0.02-500000-lc.gensim_mallet-lda",
+        "workers": 1
+    },
+    "extra_options": {
+        "tfidf_weighing": false
+    }
+}

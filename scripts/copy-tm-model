@@ -1,0 +1,126 @@
+#!/bin/bash
+
+force=
+source_folder=
+content_folder="./content/data/tm"
+target_name=
+storage_type="zip"
+
+script_name=$(basename $0)
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+    case $key in
+        --source-folder)
+            source_folder="$2"; shift; shift
+        ;;
+        --content-folder)
+            content_folder="$2"; shift; shift
+        ;;
+        --storage-type)
+            storage_type="$2"; shift; shift
+        ;;
+        --target-name)
+            target_name="$2"; shift; shift
+        ;;
+        --force)
+            force=1 ; shift; 
+        ;;
+        --help)
+            usage ;
+            exit 0
+        ;;
+        *)
+        POSITIONAL+=("$1")
+        shift
+        ;;
+    esac
+done
+
+function usage {
+    echo "usage: ./${script_name} --source-folder folder [--content-folder folder] [--storage-type zip|feather] [--force]"
+    echo "Copies minimal set of model files needed to run the topic modelling notebook."
+    echo ""
+    echo "   --source-folder           source model folder"
+    echo "   --content-folder          target content root folder (default: ./content/data/tm)"
+    echo "   --target-name             target model name (default: same as source folder name)"
+    echo "   --storage-type            target type (zip|feather) (default: zip)"
+    echo "   --tag                     source corpus tag"
+    echo "   --force                   drop target if exists"
+    echo ""
+}
+
+set -- "${POSITIONAL[@]}"
+
+if [ "$source_folder" == "" ]; then
+    usage
+    exit 64
+fi
+
+if [ ! -d "$source_folder" ]; then
+    echo "error: source folder not found"
+    usage
+    exit 64
+fi
+
+if [ ! -d "$content_folder" ]; then
+    echo "error: target content root folder not found"
+    usage
+    exit 64
+fi
+
+if [ "$target_name" == "" ]; then
+    target_name=`basename $source_folder`
+fi
+
+declare -a MODEL_FILES=( \
+    "dictionary.${storage_type}" \
+    "document_topic_weights.${storage_type}" \
+    "token_diagnostics.${storage_type}" \
+    "topic_token_overview.${storage_type}" \
+    "documents.${storage_type}" \
+    "model_options.json" \
+    "topic_diagnostics.${storage_type}" \
+    "topic_token_weights.${storage_type}" \
+    "corpus.yml" \
+)
+
+function check_files {
+
+    local source_folder="$1"
+    local target_folder="$2"
+
+    echo "source folder: $source_folder"
+    echo "target folder: $target_folder"
+
+    for filename in "${MODEL_FILES[@]}" ; do
+        source_filename="$source_folder/$filename"
+        if [ ! -f "$source_filename" ]; then
+            echo "error: $filename not found in source folder"
+            exit 64
+        fi
+    done
+
+    if [ -d "$target_folder" ]; then
+        if [ "$force" == "" ]; then
+            echo "error: target folder already exists (use --force to overwrite)"
+            exit 64
+        fi
+        rm -rf $target_folder
+    fi
+}
+
+function copy_files
+{
+    local source_folder="$1"
+    local target_folder="$2"
+    mkdir -p $target_folder
+    for filename in "${MODEL_FILES[@]}" ; do
+        cp "$source_folder/$filename" "$target_folder/$filename"
+    done
+}
+
+check_files "$source_folder" "$content_folder/$target_name"
+copy_files "$source_folder" "$content_folder/$target_name"
