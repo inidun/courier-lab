@@ -17,7 +17,7 @@ checkpoint_opts:
     extra_columns: []
     frequency_column: null
     index_column: null
-    feather_folder: /data/inidun/courier/corpus/v0.2.0/article_corpus.feather
+    feather_folder: /drive/data/corpus/article_corpus.feather
     lower_lemma: true
 text_transform_opts: null
 pipelines:
@@ -26,8 +26,8 @@ pipelines:
     topic_modeling_pipeline:
         class_name: penelope.pipeline.topic_model.pipelines.from_tagged_frame_pipeline
 pipeline_payload:
-  source: /data/inidun/courier/corpus/v0.2.0/article_corpus.zip
-  document_index_source: /data/inidun/courier/corpus/v0.2.0/document_index.csv
+  source: &corpus /drive/data/corpus/article_corpus.zip
+  document_index_source: &index /drive/data/corpus/document_index.csv
   pos_schema_name: Universal
   memory_store:
     lang: en
@@ -35,7 +35,7 @@ pipeline_payload:
     lemma_column: lemma_
     pos_column: pos_
     text_transform_opts: normalize-whitespace
-    tagged_corpus_source: /data/inidun/courier/corpus/v0.2.0/article_corpus_pos_csv.zip
+    tagged_corpus_source: /drive/data/corpus/article_corpus_pos_csv.zip
     pos_schema_name: Universal
 
 text_reader_opts:
@@ -77,18 +77,29 @@ dependencies:
       transforms: normalize-whitespace
     dependencies:
       document_index:
-        class_name: penelope.corpus.load_document_index
+        class_name: notebooks.source.courier.load_document_index
         options:
-          filename: /data/inidun/courier/corpus/v0.2.0/document_index.csv
+          filename: *index
           sep: "\t"
   render_text:
     class_name: penelope.corpus.render.RenderService
     options:
-      template: /data/inidun/resources/article_corpus.jinja
+      template: /drive/data/resources/article_corpus.jinja
       links_registry:
         PDF: '<a href="https://demo.humlab.umu.se/courier/{{courier_id}}.pdf" target="_blank" style="font-weight: bold;color: blue;">PDF</a>'
-        MD: '<a href=""https://raw.githubusercontent.com/inidun/courier_article_corpus/main/article_corpus/{{filename}}" target="_blank" style="font-weight: bold;color: blue;">TEXT</a>'
+        MD: '<a href="https://raw.githubusercontent.com/inidun/courier_article_corpus/main/article_corpus/{{filename}}" target="_blank" style="font-weight: bold;color: blue;">TEXT</a>'
   text_loader:
     class_name: penelope.corpus.render.ZippedTextCorpusLoader
     options:
-      source: /data/inidun/courier/corpus/v0.2.0/article_corpus.zip
+      source: *corpus
+
+extra_opts:
+  pivot_keys:
+    author_category:
+      text_name: 'author_category'
+      id_name: 'author_category_id'
+      values:
+          Unknown: 0
+          UNESCO: 1
+          UN: 2
+          Named: 3
