@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "courier-lab"
+version = "0.1.0"
+description = "Courier Lab in your browser."
+authors = ["roger-mahler <roger.mahler@hotmail.com>"]
+readme = "README.md"
+packages = [{ include = "content" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12.dev0"
+jupyterlite-core = "^0.1.0"
+jupyterlab = "^4.0.3"
+ipywidgets = "^8.0.7"
+jupyterlite-pyodide-kernel = "^0.0.8"
+libarchive-c = "^5.0"
+humlab-penelope = "^0.7.36"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+pylint = "^2.17.5"
+pytest = "^7.4.0"
+humlab-penelope = "^0.7.36"
+
+[tool.black]
+line-length = 120
+target-version = ["py39"]
+skip-string-normalization = true
+exclude = '''
+(
+  \.git
+  | \.pypy_cache
+  | \.pytest_cache
+  | \.ipynb_checkpoints
+  | deprecated
+)
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 120
+py_version = "auto"
+float_to_top = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
