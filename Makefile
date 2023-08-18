@@ -15,10 +15,14 @@ bump.patch: requirements.txt
 	@git commit -m "📌 bump version patch"
 	@git push
 
+EXTRA_WHEELS := "xyzservices humlab-penelope jupyterlab-filesystem-access pyodide-http"
+# --piplite-wheels $(EXTRA_WHEELS)
+
 .PHONY: build
 build:
 	@echo "Building..."
 	@poetry run jupyter lite build --contents=content --force -y
+	
 
 .PHONY: serve
 serve:
