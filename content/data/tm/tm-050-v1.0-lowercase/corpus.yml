@@ -70,17 +70,18 @@ dependencies:
           - is_stop
           filters: null
   text_repository:
-    class_name: penelope.corpus.render.TextRepository
+    class_name: utility.text_repository.TextRepository
     options:
       source: config@text_loader
       document_index: local@document_index
       transforms: normalize-whitespace
+      filenames: /drive/data/resources/issue_filenames.csv
     dependencies:
       document_index:
-        class_name: notebooks.source.courier.load_document_index
+        class_name: penelope.corpus.load_document_index
         options:
           filename: *index
-          sep: "\t"
+          sep: ";"
   render_text:
     class_name: penelope.corpus.render.RenderService
     options:

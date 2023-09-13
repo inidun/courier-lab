@@ -77,10 +77,10 @@ dependencies:
       transforms: normalize-whitespace
     dependencies:
       document_index:
-        class_name: notebooks.source.courier.load_document_index
+        class_name: penelope.corpus.load_document_index
         options:
           filename: *index
-          sep: "\t"
+          sep: ";"
   render_text:
     class_name: penelope.corpus.render.RenderService
     options:
