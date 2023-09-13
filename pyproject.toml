@@ -9,7 +9,7 @@ packages = [{ include = "content" }]
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12.dev0"
 jupyterlite-core = "^0.1.0"
-jupyterlab = "~=3.5.1"
+jupyterlab = "^4.0.5"
 ipywidgets = "*"
 jupyterlite-pyodide-kernel = "^0.0.8"
 libarchive-c = "^5.0"
