@@ -19,11 +19,15 @@ EXTRA_WHEELS := "xyzservices humlab-penelope jupyterlab-filesystem-access pyodid
 # --piplite-wheels $(EXTRA_WHEELS)
 
 .PHONY: build
-build:
+build: lock requirements.txt
 	@echo "Building..."
 	@poetry run jupyter lite build --contents=content --force -y
 	
-
+.PHONY: lock
+lock: 
+	@echo "Freezing dependencies..."
+	@poetry lock
+	
 .PHONY: serve
 serve:
 	@echo "Serving..."
