@@ -1,5 +1,6 @@
-from penelope.corpus import render
 import pandas as pd
+from penelope.corpus import render
+
 
 class TextRepository(render.TextRepository):
     def __init__(
@@ -10,7 +11,6 @@ class TextRepository(render.TextRepository):
         transforms: str = "normalize-whitespace",
         filenames: str = None,
     ):
-        # FIXME
         super().__init__(source=source, document_index=document_index, transforms=transforms)
         self.pdf_filenames: dict[str, str] = pd.read_csv(filenames, sep=',', index_col=0)['filename'].to_dict()
 
